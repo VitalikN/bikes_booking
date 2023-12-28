@@ -1,0 +1,31 @@
+@import "../utils/container.scss";
+@import "../utils/mixins";
+.header__section {
+  display: flex;
+  align-items: center;
+  height: 42px;
+
+  background: #696969;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  color: #e8e8e8;
+
+  font-size: 24px;
+}
+.header__nav {
+  color: #e8e8e8;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+.header__icon {
+  height: 25px;
+  font-size: 20px;
+}
