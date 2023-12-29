@@ -1,4 +1,10 @@
+import BikesBooking from "@/components/BikesBooking";
+
 const Home = () => {
-  return <>home</>;
+  return (
+    <>
+      <BikesBooking />
+    </>
+  );
 };
 export default Home;

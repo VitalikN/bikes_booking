@@ -9,12 +9,9 @@ const Header: React.FC = () => {
   return (
     <header className={`${styles.header__section} ${saira.className} `}>
       <div className={`${styles.container} ${styles.header__container}`}>
-        <Link
-          className={`${styles.header__logo} ${saira_Stencil_One.className}`}
-          href="/"
-        >
+        <h1 className={`${styles.header__logo} ${saira_Stencil_One.className}`}>
           ADMIN.BIKE-BOOKING.COM
-        </Link>
+        </h1>
         <nav className={styles.header__nav}>
           <Link className={`${styles.header__icon} `} href="/">
             <FaHome />
