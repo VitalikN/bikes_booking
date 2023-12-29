@@ -1,6 +1,12 @@
 @import "../utils/container.scss";
 @import "../utils/mixins";
 
+.box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .list {
   display: flex;
   flex-direction: column;

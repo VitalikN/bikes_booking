@@ -1,0 +1,127 @@
+@import "../utils/container.scss";
+@import "../utils/mixins";
+
+.section__login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formik {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__container__form {
+  display: contents;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 370px;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.8em;
+  font-weight: 600;
+  line-height: 1.2em;
+  letter-spacing: 0px;
+  text-align: center;
+  padding-bottom: 20px;
+  color: #696969;
+}
+
+.form__box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #696969;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+}
+.input {
+  resize: none;
+  height: 50px;
+  border-radius: 8px;
+  color: #696969;
+  background: #f2f2f2;
+  border: none;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  transition: all 0.5s;
+  &:hover,
+  &:focus {
+    scale: 1.1;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    background: #696969;
+    color: #f2f2f2;
+
+    outline: none;
+  }
+}
+.error {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: red;
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  opacity: 0.9;
+}
+.styledBtn {
+  cursor: pointer;
+  display: flex;
+
+  padding: 14px 35px 16px 35px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #696969;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  color: #fff;
+
+  border: none;
+
+  color: #fff;
+  text-align: center;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: all 0.5s;
+  &:hover {
+    scale: 1.05;
+    background: #696969ed;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+}
+.text__register {
+  text-align: center;
+  color: #696969;
+  font-size: 14px;
+}
+.link__register {
+  padding-left: 10px;
+}
