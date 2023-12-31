@@ -61,3 +61,7 @@ Open http://localhost:3000 in your browser to see the result.
 ### Deploy on Vercel
 
 The project is already deployed on Vercel. Details about deployment can be found in the [Next.js deployment documentation](https://nextjs.org/docs/deployment)
+
+### Postman Api
+
+https://documenter.getpostman.com/view/26640456/2s9YsDkaqv
