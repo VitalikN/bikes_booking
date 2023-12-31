@@ -41,6 +41,12 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
         toast.error("User is not authenticated. Please sign in.");
         return;
       }
+      if (!value || !size) {
+        toast.error(
+          "This field is required! Price and wheel size are required."
+        );
+        return;
+      }
       const updatedValues = { ...values, id, price: value, size: size };
 
       await addBike(updatedValues);
