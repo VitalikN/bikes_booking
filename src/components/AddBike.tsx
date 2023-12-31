@@ -1,14 +1,25 @@
 "use client";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 
 import { useAddBikeFormik } from "./hooks";
 import { validationSchemaAdd } from "@/utils/Schema";
-import { initialValuesAdd } from "@/utils/type";
+import { ErrorFeedbackProps, initialValuesAdd } from "@/utils/type";
 import styles from "../sass/layouts/addBike.module.scss";
 
 const AddBike = ({ refetch }: any) => {
-  const { id, value, setValue, size, setSize, ErrorFeedback, handleSubmit } =
-    useAddBikeFormik({ refetch });
+  const { id, value, setValue, size, setSize, handleSubmit } = useAddBikeFormik(
+    { refetch }
+  );
+
+  const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
+    return (
+      <ErrorMessage name={name}>
+        {(errorMessage) => (
+          <span className={styles.error__add}>{errorMessage}</span>
+        )}
+      </ErrorMessage>
+    );
+  };
 
   return (
     <div className={styles.container__form}>

@@ -34,11 +34,15 @@
   z-index: 0;
   width: 100%;
 }
-
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .input {
   display: flex;
   padding: 5px 8px;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   flex: 1 0 0;
   align-self: stretch;
@@ -52,6 +56,11 @@
   font-size: 12px;
   font-weight: 400;
   transition: all 0.5s;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   @include tablet {
     padding: 5px 16px;
   }
@@ -66,7 +75,8 @@
     outline: none;
   }
 }
-.error {
+
+.error__add {
   font-size: 8.5px;
   font-weight: 300;
   color: red;

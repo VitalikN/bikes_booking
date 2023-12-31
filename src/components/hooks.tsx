@@ -14,14 +14,13 @@ import {
   useLogoutMutation,
   useRegisterMutation,
 } from "@/redux/authApi/authAPI";
+import styles from "../sass/layouts/signIn.module.scss";
 
 import {
   ErrorFeedbackProps,
   FormValuesAdd,
   FormValuesRegister,
 } from "@/utils/type";
-
-import styles from "../sass/layouts/addBike.module.scss";
 
 import { useEffect, useState } from "react";
 import { useGetAllbikesQuery } from "@/redux/bikesBookingApi/bikesBookingApi";
@@ -32,14 +31,6 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
   const id = nanoid();
   const [value, setValue] = useState("");
   const [size, setSize] = useState("");
-
-  const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
-    return (
-      <ErrorMessage name={name}>
-        {(errorMessage) => <span className={styles.error}>{errorMessage}</span>}
-      </ErrorMessage>
-    );
-  };
 
   const handleSubmit = async (
     values: FormValuesAdd,
@@ -70,7 +61,6 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
     setValue,
     size,
     setSize,
-    ErrorFeedback,
     handleSubmit,
   };
 };
