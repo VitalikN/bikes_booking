@@ -212,9 +212,11 @@ export const useSignInForm = () => {
   const handleLogin = async (values: FormValuesRegister) => {
     try {
       const response = await login(values);
-      response
-        ? toast.success("Successfully logged in!")
-        : toast.error("Invalid login or password.");
+      {
+        response
+          ? toast.success("Successfully logged in!")
+          : toast.error("Invalid login or password.");
+      }
     } catch (error) {
       toast.error("Invalid login or password.");
     }
