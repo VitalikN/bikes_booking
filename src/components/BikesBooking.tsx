@@ -9,6 +9,7 @@ import { CgClose } from "react-icons/cg";
 import { Bike } from "@/utils/type";
 import { useBikesBooking } from "./hooks";
 import styles from "../sass/layouts/bikesBooking.module.scss";
+import Loader from "./Loader";
 
 const BikesBooking = () => {
   const {
@@ -26,7 +27,7 @@ const BikesBooking = () => {
   } = useBikesBooking();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (error) {
