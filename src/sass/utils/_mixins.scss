@@ -1,5 +1,5 @@
 @mixin mobile {
-  @media screen and (min-width: 360px) {
+  @media screen and (max-width: 767px) {
     @content;
   }
 }
@@ -13,9 +13,4 @@
   @media screen and (min-width: 1280px) {
     @content;
   }
-}
-@mixin font($fs: 14px, $fw: 400px, $lh) {
-  font-size: $fs;
-  font-weight: $fw;
-  line-height: $lh / $fs;
 }

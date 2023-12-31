@@ -1,10 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { clearToken } from "./authApiSlice";
+import store from "../store";
+
+type RootState = ReturnType<typeof store.getState>;
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://bikesbooking-backend.onrender.com/api/auth",
-    // baseUrl: "http://localhost:3001/api/auth",
+    // baseUrl: "https://bikesbooking-backend.onrender.com/api/auth",
+    baseUrl: "http://localhost:3001/api/auth",
 
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as { auth: { token: string } }).auth.token;
@@ -32,7 +36,31 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["auth"],
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout ",
+        method: "POST",
+      }),
+      invalidatesTags: ["auth"],
+    }),
+
+    current: builder.query({
+      query: () => "/current",
+
+      onQueryStarted: (_, { dispatch, getState }) => {
+        const token = (getState() as RootState).auth.token;
+        if (!token) {
+          dispatch(clearToken());
+        }
+      },
+      providesTags: ["auth"],
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useCurrentQuery,
+} = authApi;

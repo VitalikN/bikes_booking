@@ -1,13 +1,8 @@
 import { FC } from "react";
 
 import styles from "../sass/layouts/pagination.module.scss";
+import { PaginationProps } from "@/utils/type";
 
-interface PaginationProps {
-  totalItems: number;
-  itemsPerPage: number;
-  onPageChange: (page: number) => void;
-  currentPage: number;
-}
 const Pagination: FC<PaginationProps> = ({
   totalItems,
   itemsPerPage,

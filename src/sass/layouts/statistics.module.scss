@@ -1,0 +1,29 @@
+@import "../utils/container.scss";
+@import "../utils/mixins";
+
+.box {
+  padding: 9px;
+}
+.title {
+  color: #000;
+
+  font-size: 18px;
+
+  font-weight: 700;
+}
+.text {
+  color: #000;
+
+  font-size: 14px;
+
+  font-weight: 400;
+}
+.chip {
+  color: #000;
+  font-size: 14px;
+
+  font-weight: 700;
+}
+.chip__cost {
+  padding: 0 5px;
+}

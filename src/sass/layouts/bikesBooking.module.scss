@@ -3,7 +3,126 @@
 
 .bikesBooking__container {
   display: flex;
-  padding-top: 9px;
-  padding-bottom: 15px;
-  min-height: calc(100vh - 84px);
+  flex-direction: column;
+  min-height: calc(100vh - 340px);
+
+  @include tablet {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    min-height: calc(100vh - 84px);
+  }
+}
+.box::after {
+  @include tablet {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    content: "";
+    display: flex;
+    border-right: 1px solid #c4c4c4;
+  }
+}
+
+.box {
+  @include mobile {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  // position: relative;
+
+  // padding-top: 9px;
+  // padding-right: 9px;
+  // padding-bottom: 50px;
+  width: 100%;
+}
+
+.empty_message {
+  font-size: 18px;
+  @include tablet {
+    font-size: 22px;
+  }
+  color: #717171;
+  text-align: center;
+  font-weight: 400;
+  padding: 10px 5px;
+}
+.box__list {
+  position: relative;
+  width: 100%;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  // width: 100%;
+
+  padding: 9px 9px 50px 0;
+}
+
+.list__item {
+  @include tablet {
+  }
+  position: relative;
+  border-radius: 10px;
+  background: #e8e8e8;
+  padding: 12px;
+}
+.available {
+  border: 2px solid #aaffaa !important; /* Зелений колір для статусу "available" */
+}
+
+.busy {
+  border: 2px solid #f2994a !important; /* Червоний колір для статусу "busy" */
+}
+
+.unavailable {
+  border: 2px solid #eb5757 !important; /* Сірий колір для статусу "unavailable" */
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 12px;
+  color: #000000;
+}
+.list__box {
+  display: flex;
+  align-items: center;
+}
+.list__title {
+  color: #333;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.id {
+  color: #717171;
+
+  font-size: 8px;
+  font-weight: 400;
+}
+.list__subject {
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+}
+.select {
+  color: #333;
+  margin-left: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: none;
+
+  cursor: pointer;
+}
+
+.list__price {
+  margin-left: auto;
 }

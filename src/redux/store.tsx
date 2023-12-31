@@ -29,7 +29,7 @@ const store = configureStore({
       },
     }).concat(
       bikesBookingApi.middleware,
-      authApi.middleware,
+      bikesBookingApi.middleware,
       userBikesBookingApi.middleware
     ),
 });

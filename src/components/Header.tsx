@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { FaHome } from "react-icons/fa";
 import { saira, saira_Stencil_One } from "@/utils/fonts";
+import { FaHome } from "react-icons/fa";
+import { LuLogOut } from "react-icons/lu";
+
+import ToastProvider from "./ToastProvider";
 import styles from "../sass/layouts/header.module.scss";
+import { useHeader } from "./hooks";
 
 const Header: React.FC = () => {
+  const { token, handleLogout } = useHeader();
+
   return (
     <header className={`${styles.header__section} ${saira.className} `}>
       <div className={`${styles.container} ${styles.header__container}`}>
@@ -16,10 +22,15 @@ const Header: React.FC = () => {
           <Link className={`${styles.header__icon} `} href="/">
             <FaHome />
           </Link>
-          <Link className={styles.header__link} href="/sign_in">
-            Sign in
-          </Link>
+          {token ? (
+            <LuLogOut onClick={handleLogout} className={styles.header__icon} />
+          ) : (
+            <Link className={styles.header__link} href="/sign_in">
+              Sign in
+            </Link>
+          )}
         </nav>
+        <ToastProvider />
       </div>
     </header>
   );

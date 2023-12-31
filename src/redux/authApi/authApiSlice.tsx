@@ -3,6 +3,12 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { authApi } from "./authAPI";
 
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["token"],
+};
+
 const initialState = {
   user: {
     name: null,
@@ -14,11 +20,6 @@ const initialState = {
   isRefreshing: false,
 };
 
-const authPersistConfig = {
-  key: "auth",
-  storage,
-  whitelist: ["token"],
-};
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -45,6 +46,26 @@ const authSlice = createSlice({
         state.user.id = action.payload.id;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+      })
+      .addMatcher(authApi.endpoints.logout.matchFulfilled, (state) => {
+        state.user = {
+          name: null,
+          email: null,
+          id: null,
+        };
+        state.token = null;
+        state.isLoggedIn = false;
+      })
+      .addMatcher(authApi.endpoints.current.matchPending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addMatcher(authApi.endpoints.current.matchFulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addMatcher(authApi.endpoints.current.matchRejected, (state) => {
+        state.isRefreshing = false;
       });
   },
 });

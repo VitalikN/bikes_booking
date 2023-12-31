@@ -1,64 +1,16 @@
 "use client";
 import Link from "next/link";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 
 import styles from "../sass/layouts/signIn.module.scss";
 
-import * as Yup from "yup";
-import { useLoginMutation } from "@/redux/authApi/authAPI";
-interface FormValues {
-  email: string;
-  password: string;
-}
-interface ErrorFeedbackProps {
-  name: string;
-}
-export const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Wrong Email")
-    .matches(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/, "Wrong Email")
-    .required("This field is required!"),
-  password: Yup.string()
-    .min(5, "Password must be at least 5 characters long!")
-    .required("This field is required!"),
-});
+import ToastProvider from "./ToastProvider";
+import { validationSchema } from "../utils/Schema";
+import { useSignInForm } from "./hooks";
 
 const SignIn = () => {
-  const [login, { isLoading, isError, error }] = useLoginMutation();
+  const { handleSubmit, ErrorFeedback, isLoading } = useSignInForm();
 
-  const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
-    return (
-      <ErrorMessage name={name}>
-        {(errorMessage) => <span className={styles.error}>{errorMessage}</span>}
-      </ErrorMessage>
-    );
-  };
-
-  const handleLogin = async (values: FormValues) => {
-    try {
-      const response = await login(values);
-      if ("data" in response) {
-        console.log("успішно");
-      } else {
-        console.log("Невірна електронна адреса або пароль. Спробуйте ще раз.");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
-
-  const handleSubmit = async (
-    values: FormValues,
-    { resetForm }: { resetForm: () => void }
-  ) => {
-    try {
-      await handleLogin(values);
-
-      resetForm();
-    } catch (error) {
-      console.log("Невірна електронна адреса або пароль. Спробуйте ще раз.");
-    }
-  };
   return (
     <section>
       <div className={`${styles.container} `}>
@@ -95,7 +47,7 @@ const SignIn = () => {
                 <ErrorFeedback name="password" />
               </div>
               <button className={styles.styledBtn} type="submit">
-                {isLoading ? "Loading...." : "Вхід"}
+                {isLoading ? "Loading...." : "Sign in"}
               </button>
             </Form>
           )}
@@ -106,6 +58,7 @@ const SignIn = () => {
             Register now
           </Link>
         </p>
+        <ToastProvider />
       </div>
     </section>
   );

@@ -5,9 +5,9 @@ import store from "../store";
 export const userBikesBookingApi = createApi({
   reducerPath: "userBikesBookingApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://bikesbooking-backend.onrender.com/api/bikes",
+    // baseUrl: "https://bikesbooking-backend.onrender.com/api/bikes",
 
-    // baseUrl: "http://localhost:3001/api/bikes",
+    baseUrl: "http://localhost:3001/api/bikes",
 
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as { auth: { token: string } }).auth.token;
@@ -19,10 +19,7 @@ export const userBikesBookingApi = createApi({
   }),
   tagTypes: ["userBikesBooking"],
   endpoints: (builder) => ({
-    updateBikeStatus: builder.mutation<
-      any,
-      { bikeId: string; newType: string }
-    >({
+    updateBikeStatus: builder.mutation({
       query: ({ bikeId, newType }) => ({
         url: `/${bikeId}`,
         method: "PATCH",
@@ -30,7 +27,26 @@ export const userBikesBookingApi = createApi({
       }),
       invalidatesTags: ["userBikesBooking"],
     }),
+    addBike: builder.mutation({
+      query: (formData) => ({
+        url: `/`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["userBikesBooking"],
+    }),
+    deleteBike: builder.mutation({
+      query: (_id) => ({
+        url: `/${_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["userBikesBooking"],
+    }),
   }),
 });
 
-export const { useUpdateBikeStatusMutation } = userBikesBookingApi;
+export const {
+  useUpdateBikeStatusMutation,
+  useAddBikeMutation,
+  useDeleteBikeMutation,
+} = userBikesBookingApi;

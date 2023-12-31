@@ -2,7 +2,7 @@ const getIsRefreshing = (state: any) => state.auth.isRefreshing;
 
 const getIsLoggedIn = (state: any) => state.auth.isLoggedIn;
 
-const getName = (state: any) => state.auth?.user?.name;
+const getName = (state: any) => state.auth.user.name;
 
 const getEmail = (state: any) => state.auth.user.email;
 
