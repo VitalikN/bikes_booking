@@ -1,13 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import store from "../store";
-
 export const userBikesBookingApi = createApi({
   reducerPath: "userBikesBookingApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://bikesbooking-backend.onrender.com/api/bikes",
-
-    baseUrl: "http://localhost:3001/api/bikes",
+    baseUrl: "https://bikesbooking-backend.onrender.com/api/bikes",
 
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as { auth: { token: string } }).auth.token;

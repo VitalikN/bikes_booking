@@ -7,8 +7,7 @@ type RootState = ReturnType<typeof store.getState>;
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://bikesbooking-backend.onrender.com/api/auth",
-    baseUrl: "http://localhost:3001/api/auth",
+    baseUrl: "https://bikesbooking-backend.onrender.com/api/auth",
 
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as { auth: { token: string } }).auth.token;
