@@ -11,8 +11,8 @@ export const validationSchemaAdd = Yup.object().shape({
   color: Yup.string()
     .min(5, "Id must be at least 5 characters long!")
     .required("This field is required!"),
-  size: Yup.number().min(1).required("This field is required!"),
-  price: Yup.number().min(1).required("This field is required!"),
+  size: Yup.number().required("This field is required!"),
+  price: Yup.number().required("This field is required!"),
   description: Yup.string()
     .min(5, "Id must be at least 5 characters long!")
     .required("This field is required!"),

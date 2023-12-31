@@ -7,7 +7,8 @@ import { initialValuesAdd } from "@/utils/type";
 import styles from "../sass/layouts/addBike.module.scss";
 
 const AddBike = ({ refetch }: any) => {
-  const { id, ErrorFeedback, handleSubmit } = useAddBikeFormik({ refetch });
+  const { id, value, setValue, size, setSize, ErrorFeedback, handleSubmit } =
+    useAddBikeFormik({ refetch });
 
   return (
     <div className={styles.container__form}>
@@ -63,6 +64,8 @@ const AddBike = ({ refetch }: any) => {
                   placeholder={"Wheel size"}
                   type="number"
                   name="size"
+                  value={size}
+                  onChange={(e: any) => setSize(e.target.value)}
                   error={touched.size && errors.size}
                 />
                 <ErrorFeedback name="size" />
@@ -75,6 +78,8 @@ const AddBike = ({ refetch }: any) => {
                   placeholder={"Price"}
                   type="number"
                   name="price"
+                  value={value}
+                  onChange={(e: any) => setValue(e.target.value)}
                   error={touched.price && errors.price}
                 />
                 <ErrorFeedback name="price" />

@@ -30,6 +30,8 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
   const token = useSelector(authSelector.selectToken);
   const [addBike] = useAddBikeMutation();
   const id = nanoid();
+  const [value, setValue] = useState("");
+  const [size, setSize] = useState("");
 
   const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
     return (
@@ -48,12 +50,14 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
         toast.error("User is not authenticated. Please sign in.");
         return;
       }
-      const updatedValues = { ...values, id };
+      const updatedValues = { ...values, id, price: value, size: size };
 
       await addBike(updatedValues);
       toast.success(`AddBike`);
 
       resetForm();
+      setSize("");
+      setValue("");
       refetch();
     } catch (error) {
       toast.error("");
@@ -62,12 +66,14 @@ export const useAddBikeFormik = ({ refetch }: { refetch: () => void }) => {
 
   return {
     id,
+    value,
+    setValue,
+    size,
+    setSize,
     ErrorFeedback,
     handleSubmit,
   };
 };
-
-//
 
 export const useBikesBooking = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(6);
@@ -157,7 +163,6 @@ export const useHeader = () => {
   };
 };
 
-//
 export const useRegisterForm = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
