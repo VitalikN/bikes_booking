@@ -149,8 +149,9 @@ export const useHeader = () => {
     try {
       await logout({});
       toast.success("Successfully logged out!");
-      return;
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Error.");
+    }
   };
 
   return {
@@ -210,8 +211,10 @@ export const useSignInForm = () => {
   };
   const handleLogin = async (values: FormValuesRegister) => {
     try {
-      await login(values);
-      toast.success("Successfully logged in!");
+      const response = await login(values);
+      if (response) {
+        toast.success("Successfully logged in!");
+      }
     } catch (error) {
       toast.error("Invalid login or password.");
     }
