@@ -129,7 +129,14 @@ const AddBike = ({ refetch }: any) => {
               <button className={styles.styledBtn} type="submit">
                 SAVE
               </button>
-              <button className={styles.styledBtn} type="reset">
+              <button
+                className={styles.styledBtn}
+                type="reset"
+                onClick={() => {
+                  setValue("");
+                  setSize("");
+                }}
+              >
                 CLEAR
               </button>
             </div>
