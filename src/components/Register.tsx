@@ -7,11 +7,11 @@ import { Field, Form, Formik } from "formik";
 import { validationSchemaRegister } from "../utils/Schema";
 
 import styles from "../sass/layouts/signIn.module.scss";
-import { useRegisterForm } from "./hooks";
+import { ErrorFeedback, useRegisterForm } from "./hooks";
 import ToastProvider from "./ToastProvider";
 
 const Register = () => {
-  const { handleSubmit, ErrorFeedback, isLoading } = useRegisterForm();
+  const { handleSubmit,  isLoading } = useRegisterForm();
 
   return (
     <section>

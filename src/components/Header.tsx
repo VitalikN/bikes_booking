@@ -10,7 +10,7 @@ import styles from "../sass/layouts/header.module.scss";
 import { useHeader } from "./hooks";
 
 const Header: React.FC = () => {
-  const { token, handleLogout } = useHeader();
+  const { token, nameUser, handleLogout } = useHeader();
 
   return (
     <header className={`${styles.header__section} ${saira.className} `}>
@@ -23,7 +23,17 @@ const Header: React.FC = () => {
             <FaHome />
           </Link>
           {token ? (
-            <LuLogOut onClick={handleLogout} className={styles.header__icon} />
+            <>
+              <h2
+                className={`${styles.header__logo} ${saira_Stencil_One.className}`}
+              >
+                {nameUser}
+              </h2>
+              <LuLogOut
+                onClick={handleLogout}
+                className={styles.header__icon}
+              />
+            </>
           ) : (
             <Link className={styles.header__link} href="/sign_in">
               Sign in

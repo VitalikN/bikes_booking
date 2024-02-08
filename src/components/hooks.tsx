@@ -143,6 +143,8 @@ export const useBikesBooking = () => {
 
 export const useHeader = () => {
   const token = useSelector(authSelector.selectToken);
+    const nameUser = useSelector(authSelector.getName);
+
   const [logout] = useLogoutMutation();
 
   const handleLogout = async () => {
@@ -156,6 +158,7 @@ export const useHeader = () => {
 
   return {
     token,
+    nameUser,
     handleLogout,
   };
 };
@@ -177,13 +180,6 @@ export const useRegisterForm = () => {
       toast.error("Invalid login or password.");
     }
   };
-  const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
-    return (
-      <ErrorMessage name={name}>
-        {(errorMessage) => <span className={styles.error}>{errorMessage}</span>}
-      </ErrorMessage>
-    );
-  };
 
   const handleSubmit = async (
     values: FormValuesRegister,
@@ -202,39 +198,28 @@ export const useRegisterForm = () => {
 export const useSignInForm = () => {
   const [login, { isLoading }] = useLoginMutation();
 
-  const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
-    return (
-      <ErrorMessage name={name}>
-        {(errorMessage) => <span className={styles.error}>{errorMessage}</span>}
-      </ErrorMessage>
-    );
-  };
-  const handleLogin = async (values: FormValuesRegister) => {
-    try {
-      const response = await login(values);
-      {
-        "data" in response
-          ? toast.success("Successfully logged in!")
-          : toast.error("Invalid login or password.");
-      }
-      //
-
-      //
-    } catch (error) {
-      toast.error("Invalid login or password.");
-    }
-  };
   const handleSubmit = async (
     values: FormValuesRegister,
     { resetForm }: { resetForm: () => void }
   ) => {
-    try {
-      await handleLogin(values);
-      resetForm();
-    } catch (error) {
-      toast.error("Invalid login or password.");
-    }
-  };
+    await login(values)
+      .unwrap()
+      .then((res) => {
+        res.token
+          ? toast.success("Successfully logged in!")
+          : toast.error("Invalid login or password.");
 
+        resetForm();
+      })
+      .catch((error) => toast.error("Invalid login or password."));
+  };
   return { handleSubmit, ErrorFeedback, isLoading };
+};
+
+export const ErrorFeedback: React.FC<ErrorFeedbackProps> = ({ name }) => {
+  return (
+    <ErrorMessage name={name}>
+      {(errorMessage) => <span className={styles.error}>{errorMessage}</span>}
+    </ErrorMessage>
+  );
 };

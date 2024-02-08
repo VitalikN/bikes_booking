@@ -6,11 +6,20 @@ import styles from "../sass/layouts/signIn.module.scss";
 
 import ToastProvider from "./ToastProvider";
 import { validationSchema } from "../utils/Schema";
-import { useSignInForm } from "./hooks";
+import { ErrorFeedback, useSignInForm } from "./hooks";
+import authSelector from "@/redux/authApi/authSelector";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
-  const { handleSubmit, ErrorFeedback, isLoading } = useSignInForm();
+  const { handleSubmit, isLoading } = useSignInForm();
+  const router = useRouter();
 
+  const token = useSelector(authSelector.selectToken);
+
+  {
+    token ? router.push("/") : "";
+  }
   return (
     <section>
       <div className={`${styles.container} `}>
