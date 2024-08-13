@@ -143,7 +143,7 @@ export const useBikesBooking = () => {
 
 export const useHeader = () => {
   const token = useSelector(authSelector.selectToken);
-    const nameUser = useSelector(authSelector.getName);
+  const nameUser = useSelector(authSelector.getName);
 
   const [logout] = useLogoutMutation();
 
@@ -166,35 +166,38 @@ export const useHeader = () => {
 export const useRegisterForm = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
-  const handleRegister = async (values: FormValuesRegister) => {
-    try {
-      const response = await register(values);
-      if ("data" in response) {
-        toast.success(
-          "Successfully registered! Please proceed to sign in for confirmation."
-        );
-      } else {
-        toast.error("Invalid login or password.");
-      }
-    } catch (error) {
-      toast.error("Invalid login or password.");
-    }
-  };
-
   const handleSubmit = async (
     values: FormValuesRegister,
     { resetForm }: { resetForm: () => void }
   ) => {
     try {
-      await handleRegister(values);
-      resetForm();
+      const res = await register(values).unwrap();
+
+      toast.success(
+        "Successfully registered! Please proceed to sign in for confirmation."
+      );
+      if (res.email) {
+        resetForm();
+      }
     } catch (error) {
-      toast.error("Invalid login or password.");
+      if (error && typeof error === "object" && "status" in error) {
+        const errorObject = error as {
+          status?: number;
+          data?: { message?: string };
+        };
+
+        if (errorObject.status === 409) {
+          const errorMessage =
+            errorObject.data?.message ||
+            "Registration failed. Please try again.";
+          toast.error(errorMessage);
+        }
+      }
     }
   };
-
-  return { handleSubmit, ErrorFeedback, isLoading };
+  return { handleSubmit, isLoading };
 };
+
 export const useSignInForm = () => {
   const [login, { isLoading }] = useLoginMutation();
 
@@ -202,17 +205,21 @@ export const useSignInForm = () => {
     values: FormValuesRegister,
     { resetForm }: { resetForm: () => void }
   ) => {
-    await login(values)
-      .unwrap()
-      .then((res) => {
-        res.token
-          ? toast.success("Successfully logged in!")
-          : toast.error("Invalid login or password.");
+    try {
+      const res = await login(values).unwrap();
 
-        resetForm();
-      })
-      .catch((error) => toast.error("Invalid login or password."));
+      if (res.token) {
+        toast.success("Successfully logged in!");
+      } else {
+        toast.error("Invalid login or password.");
+      }
+
+      resetForm();
+    } catch (error) {
+      toast.error("Invalid login or password.");
+    }
   };
+
   return { handleSubmit, ErrorFeedback, isLoading };
 };
 

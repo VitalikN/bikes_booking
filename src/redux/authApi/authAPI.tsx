@@ -20,10 +20,10 @@ export const authApi = createApi({
   tagTypes: ["auth"],
   endpoints: (builder) => ({
     register: builder.mutation({
-      query: (credentials) => ({
+      query: ({ name, email, password }) => ({
         url: "/register",
         method: "POST",
-        body: credentials,
+        body: { name, email, password },
       }),
       invalidatesTags: ["auth"],
     }),

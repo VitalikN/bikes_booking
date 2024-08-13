@@ -16,8 +16,6 @@ const initialState = {
     id: null,
   },
   token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
 };
 
 const authSlice = createSlice({
@@ -33,21 +31,16 @@ const authSlice = createSlice({
       .addMatcher(
         authApi.endpoints.register.matchFulfilled,
         (state, { payload }) => {
-          state.user.email = payload.user.email;
-          state.user.name = payload.user.name;
-          state.user.id = payload.user.id;
+          state.user = payload.user;
           state.token = payload.token;
-          state.isLoggedIn = true;
         }
       )
       .addMatcher(
         authApi.endpoints.login.matchFulfilled,
         (state, { payload }) => {
-          state.user.email = payload.user.email;
-          state.user.name = payload.user.name;
-          state.user.id = payload.user.id;
+          state.user = payload.user;
+
           state.token = payload.token;
-          state.isLoggedIn = true;
         }
       )
       .addMatcher(authApi.endpoints.logout.matchFulfilled, (state) => {
@@ -57,22 +50,15 @@ const authSlice = createSlice({
           id: null,
         };
         state.token = null;
-        state.isLoggedIn = false;
       })
-      .addMatcher(authApi.endpoints.current.matchPending, (state) => {
-        state.isRefreshing = true;
-      })
+      .addMatcher(authApi.endpoints.current.matchPending, (state) => {})
       .addMatcher(
         authApi.endpoints.current.matchFulfilled,
         (state, { payload }) => {
           state.user = payload;
-          state.isLoggedIn = true;
-          state.isRefreshing = false;
         }
       )
-      .addMatcher(authApi.endpoints.current.matchRejected, (state) => {
-        state.isRefreshing = false;
-      });
+      .addMatcher(authApi.endpoints.current.matchRejected, (state) => {});
   },
 });
 

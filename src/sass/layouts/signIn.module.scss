@@ -126,3 +126,13 @@
   padding-left: 10px;
   color: #3e3e3e;
 }
+.box__linkedin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+.linkedin {
+  cursor: pointer;
+}

@@ -10,16 +10,20 @@ import { ErrorFeedback, useSignInForm } from "./hooks";
 import authSelector from "@/redux/authApi/authSelector";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Linkedin from "./Linkedin";
 
 const SignIn = () => {
   const { handleSubmit, isLoading } = useSignInForm();
   const router = useRouter();
 
   const token = useSelector(authSelector.selectToken);
+  useEffect(() => {
+    if (token) {
+      router.push("/");
+    }
+  }, [token, router]);
 
-  {
-    token ? router.push("/") : "";
-  }
   return (
     <section>
       <div className={`${styles.container} `}>
@@ -61,6 +65,7 @@ const SignIn = () => {
             </Form>
           )}
         </Formik>
+        <Linkedin />
         <p className={styles.text__register}>
           Don`t have an account yet?
           <Link className={styles.link__register} href="/register">
